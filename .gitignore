@@ -1,0 +1,29 @@
+# Environments and secrets
+.env
+.env.*
+!.env.example
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Application storage & local data
+data/uploads/*
+!data/uploads/.gitkeep
+data/qdrant_db/*
+!data/qdrant_db/.gitkeep
+
+# IDEs and OS artifacts
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
