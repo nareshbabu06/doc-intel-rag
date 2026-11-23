@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class BoundingBox(BaseModel):
@@ -74,6 +74,42 @@ class DocumentChunk(BaseModel):
     content: str
     bbox: BoundingBox
     token_estimate: int
+
+
+class Citation(BaseModel):
+    """Exact source citation grounding an AI claim back to document spatial coordinates."""
+
+    model_config = ConfigDict(frozen=True)
+
+    source_index: int
+    chunk_id: str
+    page_num: int
+    chunk_type: str
+    bbox: BoundingBox
+    relevance_score: float
+    snippet: str
+
+
+class QueryRequest(BaseModel):
+    """Request payload for semantic querying across an ingested document."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    question: str = Field(..., min_length=3, max_length=1000)
+    top_k: int = Field(default=5, ge=1, le=15)
+
+
+class QueryResponse(BaseModel):
+    """Citation-grounded synthesis response with execution profiling metadata."""
+
+    model_config = ConfigDict(frozen=True)
+
+    doc_id: str
+    answer: str
+    citations: list[Citation]
+    retrieval_ms: float
+    generation_ms: float
 
 
 class HealthResponse(BaseModel):
