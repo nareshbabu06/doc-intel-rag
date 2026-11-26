@@ -47,6 +47,7 @@ RUN mkdir -p /app/.cache/huggingface && \
 
 # Copy application source
 COPY app/ /app/app/
+COPY frontend/ /app/frontend/
 COPY scripts/ /app/scripts/
 COPY .env.example /app/.env.example
 
