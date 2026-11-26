@@ -1,5 +1,7 @@
 # DocIntel-RAG: Multi-Modal Document Intelligence & Async RAG Pipeline
 
+![Visual Citation Viewer](docs/visual-citation-demo.png)
+
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Qdrant](https://img.shields.io/badge/Qdrant-v1.16%2B-DC244C?logo=qdrant&logoColor=white)](https://qdrant.tech/)
