@@ -20,6 +20,17 @@ class DocIntelException(Exception):
         super().__init__(message)
 
 
+class InvalidFileError(DocIntelException):
+    """Raised when an uploaded file fails extension or magic-byte validation."""
+
+    def __init__(
+        self,
+        message: str = "Invalid file format; only valid PDF documents are accepted",
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        super().__init__(message=message, status_code=400, details=details)
+
+
 class DocumentParsingError(DocIntelException):
     """Raised when a document fails extraction or structural parsing."""
 

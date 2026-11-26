@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -110,6 +110,38 @@ class QueryResponse(BaseModel):
     citations: list[Citation]
     retrieval_ms: float
     generation_ms: float
+
+
+class UploadResponse(BaseModel):
+    """Response schema returned immediately after queueing a document ingestion job."""
+
+    model_config = ConfigDict(frozen=True)
+
+    doc_id: str
+    task_id: str
+    filename: str
+    status: str
+
+
+class TaskStatusResponse(BaseModel):
+    """Response schema reporting Celery background ingestion state and metadata."""
+
+    model_config = ConfigDict(frozen=True)
+
+    task_id: str
+    state: str
+    meta: dict[str, Any] | None = None
+    error: str | None = None
+
+
+class DeleteResponse(BaseModel):
+    """Response schema confirming deletion of document vectors and source file."""
+
+    model_config = ConfigDict(frozen=True)
+
+    doc_id: str
+    status: str
+    message: str
 
 
 class HealthResponse(BaseModel):

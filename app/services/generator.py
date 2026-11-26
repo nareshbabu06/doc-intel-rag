@@ -84,7 +84,7 @@ class RAGGenerator:
 
         return "\n\n".join(lines).strip()
 
-    async def generate_response(
+    async def generate(
         self,
         doc_id: str,
         question: str,
@@ -141,6 +141,19 @@ class RAGGenerator:
             logger.error("LLM generation failed: %s. Falling back to local extractive summary.", exc)
             fallback_answer = self._local_extractive_fallback(question, ranked_chunks)
             return fallback_answer, citations
+
+    async def generate_response(
+        self,
+        doc_id: str,
+        question: str,
+        ranked_chunks: list[tuple[DocumentChunk, float]],
+    ) -> tuple[str, list[Citation]]:
+        """Backwards-compatible alias for generate()."""
+        return await self.generate(
+            doc_id=doc_id,
+            question=question,
+            ranked_chunks=ranked_chunks,
+        )
 
 
 @lru_cache(maxsize=1)
